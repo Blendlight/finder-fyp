@@ -47,46 +47,6 @@ function upload_files_formater($arr)
 }
 
 
-function user_class($id=null)
-{
-    global $conx, $default_user_fields;
-
-    //convert to user
-    $default_user = (object)$default_user_fields;
-    $user = $default_user;
-    if($id)
-    {
-        $q = mysqli_query($conx, "SELECT * FROM `user_account` WHERE user_id='{$id}'");
-
-        if($q && mysqli_num_rows($q)>0){
-            $user = mysqli_fetch_object($q);
-            if($user->profile_image == null)
-            {
-                $user->profile_image_path = $default_user->profile_image_path;
-            }else{
-                $user->profile_image_path = BASE_URL.'/uploads/images/'.$user->profile_image;
-            }
-            $user->is_login = true;
-            $user->is_active = false;
-            $user->is_admin = false;
-            if($user->role_id == ROLE_ADMIN)
-            {
-                $user->is_admin = true;
-            }
-            if($user->user_status == 1)
-            {
-                $user->is_active = true;
-            }
-        }else{
-            $user = $default_user;
-        }
-
-    }
-
-    return $user;
-}
-
-
 
 //this is only for 2 level menus 
 //todo:make it n level
@@ -108,14 +68,26 @@ function render_menu_links($links, $level=0)
                   }
 
 
+                  
+
+
 
                   $li_class = '';
                   if("/$page" == $link)
                   {
                       $li_class = 'active';
                   }
-                  $href = page_link(substr($link, 1));
+                  
+                  
 
+                  //if not internal link
+                  if($link[0] == '/')
+                  {
+                      $href = page_link(substr($link, 1));
+                  }else{
+                      $href = $link;
+                  }
+                  
                   if($link[0] == '#')
                   {
                       $href = $link;
@@ -307,7 +279,7 @@ function show_messages()
     {
         return;
     }
-    
+
     $all_msgs = $_SESSION['msgs'];
     foreach($all_msgs as $type=>$msgs)
     {

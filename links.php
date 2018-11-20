@@ -14,9 +14,9 @@ $links = array(
     "Home"=>make_menu_link('/home'),
     "Dashboard"=>make_menu_link('/dashboard',[], LINK_LOGIN_ONLY),
     "Inbox"=>make_menu_link('/inbox', [], LINK_LOGIN_ONLY),
+    "Admin"=>make_menu_link('admin', [], LINK_ADMIN_ONLY),
     "dropdown"=>make_menu_link('#abc', array(
-        "Category"=>make_menu_link('/category'),
-        "Profile"=>make_menu_link('/profile', [], LINK_ADMIN_ONLY)
+        "Category"=>make_menu_link('/category')
     ))
 );
 

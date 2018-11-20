@@ -66,24 +66,7 @@ $scripts[] = "<script>console.log('scripts are set in bootstrap.php')</script>";
 /* user logic here */
 {
 
-    $default_user_fields = array(
-        'user_id' => 0,
-        'role_id' => 3,
-        'user_name' => '',
-        'name' => '',
-        'email' => '',
-        'phone' => '',
-        'address' => '',
-        'user_password' => '',
-        'user_status' => 0,
-        'gender' => '',
-        'cnic' => '',
-        'profile_image'=>'',
-        'profile_image_path'=>BASE_URL.'/images/profile.png',
-        'is_admin' => false,
-        'is_login' => false,
-        'is_active' => false,
-    );
+    include BASE_DIR.'/includes/user.php';
 
 
     $is_login = false;
